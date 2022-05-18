@@ -2,6 +2,7 @@ const theme = {
   colores: {
     primary: "#c8ddf5",
     secondary: "#d58baa",
+    secondaryLight: "#fccfe2",
     details: "#5b9ef2",
     detaile2: "#5b9ef2",
     text: "#30569f",

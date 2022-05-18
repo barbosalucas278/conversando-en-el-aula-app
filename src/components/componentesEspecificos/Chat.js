@@ -31,6 +31,7 @@ import StyledTouchableHighlight from "../StyledTouchableHighlight";
 import StyledText from "../StyledText";
 import theme from "../../theme";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 export const windowHeight = Dimensions.get("window").height;
 export const windowWidth = Dimensions.get("window").width;
@@ -94,22 +95,25 @@ export default function Chat(props) {
       <Bubble
         {...props}
         wrapperStyle={{
-          right: {
-            backgroundColor: theme.colores.detaile2,
-          },
-          left: {
-            backgroundColor: theme.colores.secondary,
-          },
+          //#c7c5c6
+          right: [
+            nombreSala == "uno" && styles.burbujaRightUno,
+            nombreSala == "dos" && styles.burbujaRightDos,
+          ],
+          left: [
+            nombreSala == "uno" && styles.burbujaLeftUno,
+            nombreSala == "dos" && styles.burbujaLeftDos,
+          ],
         }}
         textStyle={{
           right: {
-            color: "white",
+            color: "black",
           },
           left: {
-            color: theme.colores.detaile2,
+            color: "black",
           },
         }}
-        usernameStyle={{ color: "grey" }}
+        usernameStyle={{ color: "#5e5c5d" }}
       />
     );
   };
@@ -131,7 +135,7 @@ export default function Chat(props) {
       <Composer
         {...props}
         placeholder={"Escriba un mensaje"}
-        placeholderTextColor={theme.colores.primary}
+        placeholderTextColor={"black"}
         composerHeight={60}
       />
     );
@@ -143,10 +147,13 @@ export default function Chat(props) {
         {...props}
         //Add the extra styles via containerStyle here
         //Add any other option you want to pass like placeholder
-        primaryStyle={{
-          backgroundColor: theme.colores.detaile2,
-          color: "white",
-        }}
+        primaryStyle={[
+          nombreSala == "uno" && styles.inputToolBarUno,
+          nombreSala == "dos" && styles.inputToolBarDos,
+          {
+            color: "white",
+          },
+        ]}
         optionTintColor="white"
       />
     );
@@ -168,13 +175,13 @@ export default function Chat(props) {
   };
 
   return (
-    // <>
-    //   {messages.map(message => (
-    //     <Text key={message._id}>{message.text}</Text>
-    //   ))}<
-    // </>
     <View>
-      <View style={styles.header}>
+      <View
+        style={[
+          nombreSala == "uno" && styles.headerTopUno,
+          nombreSala == "dos" && styles.headerTopDos,
+        ]}
+      >
         <StyledTouchableHighlight
           style={styles.btnVolver}
           btnVolverHome
@@ -189,12 +196,32 @@ export default function Chat(props) {
             flex: 0.7,
           }}
         >
-          <StyledText fontSize={"subHeading"}>Sala: {nombreSala}</StyledText>
+          <StyledText
+            fontSize={"subHeading"}
+            style={[
+              nombreSala == "uno" && styles.headerUno,
+              nombreSala == "dos" && styles.headerDos,
+            ]}
+          >
+            {nombreSala == "uno" ? "Sala 4°A" : "Sala 4°B"}
+          </StyledText>
         </View>
       </View>
       {spinner && (
-        <View style={styles.spinnerContainer}>
-          <ActivityIndicator size={180} color={theme.colores.details} />
+        <View
+          style={[
+            nombreSala == "uno" && styles.spinnerContainerUno,
+            nombreSala == "dos" && styles.spinnerContainerDos,
+          ]}
+        >
+          <ActivityIndicator
+            size={180}
+            color={
+              nombreSala == "uno"
+                ? theme.colores.secondary
+                : theme.colores.detaile2
+            }
+          />
         </View>
       )}
       <GiftedChat
@@ -209,7 +236,10 @@ export default function Chat(props) {
         showUserAvatar={false}
         onSend={(messages) => onSend(messages)}
         renderSend={renderSend}
-        messagesContainerStyle={styles.messagesContainer}
+        messagesContainerStyle={[
+          nombreSala == "uno" && styles.messagesContainerUno,
+          nombreSala == "dos" && styles.messagesContainerDos,
+        ]}
         textInputStyle={styles.input}
         user={{
           _id: auth.currentUser.email,
@@ -221,22 +251,54 @@ export default function Chat(props) {
 }
 
 const styles = StyleSheet.create({
+  headerUno: {
+    color: "black",
+  },
+  inputToolBarUno: {
+    backgroundColor: theme.colores.secondary,
+  },
+  inputToolBarDos: {
+    backgroundColor: theme.colores.detaile2,
+  },
+  headerDos: {
+    color: "black",
+  },
   input: {
     color: "white",
   },
-  messagesContainer: {
+  messagesContainerUno: {
+    backgroundColor: theme.colores.secondaryLight,
+    width: Dimensions.get("screen").width,
+    height: Dimensions.get("screen").height * 0.78,
+    justifyContent: "flex-end",
+  },
+  messagesContainerDos: {
     backgroundColor: theme.colores.primary,
     width: Dimensions.get("screen").width,
     height: Dimensions.get("screen").height * 0.78,
     justifyContent: "flex-end",
   },
-  spinnerContainer: {
+  spinnerContainerUno: {
+    backgroundColor: theme.colores.secondaryLight,
+    width: Dimensions.get("screen").width,
+    height: Dimensions.get("screen").height * 0.84,
+    justifyContent: "center",
+  },
+  spinnerContainerDos: {
     backgroundColor: theme.colores.primary,
     width: Dimensions.get("screen").width,
     height: Dimensions.get("screen").height * 0.84,
     justifyContent: "center",
   },
-  header: {
+  headerTopUno: {
+    width: Dimensions.get("screen").width,
+    height: Dimensions.get("screen").height * 0.105,
+    backgroundColor: theme.colores.secondaryLight,
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    flexDirection: "row",
+  },
+  headerTopDos: {
     width: Dimensions.get("screen").width,
     height: Dimensions.get("screen").height * 0.105,
     backgroundColor: theme.colores.primary,
@@ -244,5 +306,11 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     flexDirection: "row",
   },
+  burbujaRightUno: {
+    backgroundColor: "#7dbd6c",
+  },
+  burbujaLeftUno: {},
+  burbujaRightDos: { backgroundColor: "#7dbd6c" },
+  burbujaLeftDos: {},
   btnVolver: {},
 });

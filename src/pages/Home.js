@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
     // backgroundColor: theme.colores.primary,
-    backgroundColor: "red",
   },
   btnScreen1: {
     width: Dimensions.get("screen").width,
@@ -99,6 +98,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colores.detaile2,
   },
   btnLogout: {
+    width: Dimensions.get("screen").width,
     position: "relative",
     bottom: 0,
     left: 0,
