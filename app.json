@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "conversando-en-el-aula-app",
+    "name": "Conversando en el Aula",
     "slug": "conversando-en-el-aula-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#74ccfb"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
